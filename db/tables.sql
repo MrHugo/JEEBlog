@@ -1,4 +1,0 @@
-CREATE TABLE IF NOT EXISTS Administrator
-(
-	id		SERIAL		NOT NULL
-);

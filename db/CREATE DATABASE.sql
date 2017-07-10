@@ -20,13 +20,16 @@ SET time_zone = "+00:00";
 -- Database: `jeeblog`
 --
 
+CREATE DATABASE jeeblog;
+USE jeeblog;
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `article`
 --
 
-CREATE DATABASE JEEBlog2; USE JEEBlog2; CREATE TABLE `article` (
+CREATE TABLE `article` (
   `id` int(11) NOT NULL,
   `blog_id` int(11) NOT NULL,
   `text` text NOT NULL,
@@ -55,6 +58,19 @@ CREATE TABLE `role` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `is_admin` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `comment`
+--
+
+CREATE TABLE `comment` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `article_id` int(11) NOT NULL,
+  `content` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -99,6 +115,14 @@ ALTER TABLE `role`
   ADD KEY `user_id` (`user_id`);
 
 --
+-- Indexes for table `comment`
+--
+ALTER TABLE `comment`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `article_id` (`article_id`);
+
+--
 -- Indexes for table `userblog`
 --
 ALTER TABLE `userblog`
@@ -116,6 +140,13 @@ ALTER TABLE `userblog`
 ALTER TABLE `article`
   ADD CONSTRAINT `article_ibfk_1` FOREIGN KEY (`blog_id`) REFERENCES `blog` (`id`),
   ADD CONSTRAINT `article_ibfk_2` FOREIGN KEY (`writter_id`) REFERENCES `userblog` (`id`);
+
+--
+-- Constraints for table `comment`
+--
+ALTER TABLE `comment`
+  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`article_id`) REFERENCES `article` (`id`),
+  ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `userblog` (`id`);
 
 --
 -- Constraints for table `blog`

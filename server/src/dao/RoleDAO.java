@@ -1,6 +1,7 @@
 package dao;
 
 import beans.Role;
+import producers.EntityManagerGetter;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
@@ -14,9 +15,7 @@ import java.util.List;
 @Dependent
 public class RoleDAO
 {
-    @Inject
-    @producers.EntityManager
-    private EntityManager em;
+    private EntityManager em = EntityManagerGetter.getEntityManager();
 
     public List<Role> findAll() {
         return em.createQuery("FROM Role").getResultList();

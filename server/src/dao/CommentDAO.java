@@ -1,5 +1,7 @@
 package dao;
 
+import producers.EntityManagerGetter;
+
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -11,7 +13,5 @@ import javax.persistence.EntityManager;
 @Dependent
 public class CommentDAO
 {
-    @Inject
-    @producers.EntityManager
-    private EntityManager em;
+    private EntityManager em = EntityManagerGetter.getEntityManager();
 }

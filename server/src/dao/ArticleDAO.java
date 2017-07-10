@@ -1,10 +1,12 @@
 package dao;
 
 import beans.Article;
+import producers.EntityManagerGetter;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,19 +17,14 @@ import java.util.List;
 @Dependent
 public class ArticleDAO
 {
-    @Inject
-    @producers.EntityManager
-    private EntityManager em;
+    private EntityManager em = EntityManagerGetter.getEntityManager();
 
     public List<Article> getAllArticles()
     {
         try
         {
-            ArrayList<Article> list = new ArrayList<>();
+            return em.createQuery("FROM Article").getResultList();
 
-            
-
-            return list;
         } catch (Exception e)
         {
             e.printStackTrace();

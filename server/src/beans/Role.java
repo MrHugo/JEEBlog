@@ -1,39 +1,15 @@
 package beans;
 
-/**
- * Created by Valentin Barat on 10/07/2017.
- * Please report any bug to valentin.barat@epita.fr.
- */
+import com.sun.istack.internal.NotNull;
+import javax.persistence.*;
+
+@Entity
 public class Role
 {
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer user_id;
+    @NotNull @OneToOne
+    private UserBlog user;
+    @NotNull @Column
     private Boolean is_admin;
-
-    public Role(Integer id, Integer user_id, Boolean is_admin)
-    {
-        this.id = id;
-        this.user_id = user_id;
-        this.is_admin = is_admin;
-    }
-
-    public Integer getId()
-    {
-        return id;
-    }
-
-    public Integer getUserId()
-    {
-        return user_id;
-    }
-
-    public Boolean getIsAdmin()
-    {
-        return is_admin;
-    }
-
-    public void setIsAdmin(Boolean is_admin)
-    {
-        this.is_admin = is_admin;
-    }
 }

@@ -9,10 +9,10 @@ import java.util.List;
 
 @Dependent
 public class UserBlogDAO {
-    @Inject
+    @Inject @producers.EntityManager
     private EntityManager em;
 
     public List<UserBlog> findAll() {
-        return em.createQuery("FROM Student").getResultList();
+        return em.createQuery("FROM U").getResultList();
     }
 }

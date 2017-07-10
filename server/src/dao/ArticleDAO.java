@@ -7,6 +7,7 @@ import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,12 +24,40 @@ public class ArticleDAO
     {
         try
         {
-            return em.createQuery("FROM Article").getResultList();
+            return em.createQuery("FROM article").getResultList();
 
         } catch (Exception e)
         {
             e.printStackTrace();
             return new ArrayList<>();
+        }
+    }
+
+    public List<Article> getArticlesForUser(Integer userId)
+    {
+        try
+        {
+            return em.createQuery("SELECT a FROM article WHERE a.user_id=:param")
+                    .setParameter("param", userId)
+                    .getResultList();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
+    @Transactional
+    public Boolean insertArticle(Article a)
+    {
+        try
+        {
+            em.persist(a);
+            return true;
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            return false;
         }
     }
 }

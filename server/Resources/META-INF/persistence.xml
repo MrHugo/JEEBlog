@@ -5,10 +5,13 @@
 
     <persistence-unit name="MySqlDS" transaction-type="JTA">
         <jta-data-source>java:/MySqlDS</jta-data-source>
+        <class>beans.Article</class>
+        <class>beans.Blog</class>
+        <class>beans.Comment</class>
+        <class>beans.Role</class>
         <class>beans.UserBlog</class>
 
         <properties>
-
         </properties>
     </persistence-unit>
 

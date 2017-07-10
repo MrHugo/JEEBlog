@@ -1,2 +1,4 @@
 server/.idea/workspace.xml
 .idea/*
+.DS_STORE
+server/out/*

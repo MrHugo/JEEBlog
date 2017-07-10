@@ -32,8 +32,8 @@ USE jeeblog;
 CREATE TABLE `article` (
   `id` int(11) NOT NULL,
   `blog_id` int(11) NOT NULL,
-  `text` text NOT NULL,
-  `writter_id` int(11) NOT NULL
+  `content` text NOT NULL,
+  `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -45,7 +45,7 @@ CREATE TABLE `article` (
 CREATE TABLE `blog` (
   `id` int(11) NOT NULL,
   `name` varchar(64) NOT NULL,
-  `creator_id` int(11) NOT NULL
+  `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -81,7 +81,7 @@ CREATE TABLE `comment` (
 
 CREATE TABLE `userblog` (
   `id` int(11) NOT NULL,
-  `login` varchar(64) NOT NULL,
+  `username` varchar(64) NOT NULL,
   `email` varchar(64) NOT NULL,
   `password` varchar(32) NOT NULL,
   `role_id` int(11) NOT NULL
@@ -97,7 +97,7 @@ CREATE TABLE `userblog` (
 ALTER TABLE `article`
   ADD PRIMARY KEY (`id`),
   ADD KEY `blog_id` (`blog_id`),
-  ADD KEY `writter_id` (`writter_id`);
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `blog`
@@ -105,7 +105,7 @@ ALTER TABLE `article`
 ALTER TABLE `blog`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `name` (`name`),
-  ADD KEY `creator_id` (`creator_id`);
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `role`
@@ -127,7 +127,7 @@ ALTER TABLE `comment`
 --
 ALTER TABLE `userblog`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `login` (`login`),
+  ADD UNIQUE KEY `username` (`username`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
@@ -139,7 +139,7 @@ ALTER TABLE `userblog`
 --
 ALTER TABLE `article`
   ADD CONSTRAINT `article_ibfk_1` FOREIGN KEY (`blog_id`) REFERENCES `blog` (`id`),
-  ADD CONSTRAINT `article_ibfk_2` FOREIGN KEY (`writter_id`) REFERENCES `userblog` (`id`);
+  ADD CONSTRAINT `article_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `userblog` (`id`);
 
 --
 -- Constraints for table `comment`
@@ -152,7 +152,7 @@ ALTER TABLE `comment`
 -- Constraints for table `blog`
 --
 ALTER TABLE `blog`
-  ADD CONSTRAINT `blog_ibfk_1` FOREIGN KEY (`creator_id`) REFERENCES `userblog` (`id`);
+  ADD CONSTRAINT `blog_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `userblog` (`id`);
 
 --
 -- Constraints for table `role`

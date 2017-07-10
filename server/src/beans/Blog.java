@@ -1,39 +1,19 @@
 package beans;
 
-/**
- * Created by Valentin Barat on 10/07/2017.
- * Please report any bug to valentin.barat@epita.fr.
- */
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
 public class Blog
 {
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column
     private String name;
-    private Integer user_id;
-
-    public Blog(Integer id, String name, Integer user_id)
-    {
-        this.id = id;
-        this.name = name;
-        this.user_id = user_id;
-    }
-
-    public Integer getId()
-    {
-        return id;
-    }
-
-    public String getName()
-    {
-        return name;
-    }
-
-    public Integer getUserId()
-    {
-        return user_id;
-    }
-
-    public void setName(String name)
-    {
-        this.name = name;
-    }
+    @ManyToOne
+    private UserBlog user;
+    @JsonIgnore @OneToMany
+    private List<Article> articles = new ArrayList<>();
 }

@@ -1,6 +1,7 @@
 package beans;
 
-import com.sun.istack.internal.NotNull;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,12 @@ public class UserBlog {
     private String password;
     @OneToOne
     private Role role;
-    /*@JsonIgnore*/ @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Comment> comments = new ArrayList<>();
+    @JsonIgnore @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Blog> blogs = new ArrayList<>();
+    @JsonIgnore @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Article> articles = new ArrayList<>();
 
 }

@@ -1,6 +1,5 @@
 package beans;
 
-import com.sun.istack.internal.NotNull;
 import javax.persistence.*;
 
 @Entity
@@ -8,8 +7,8 @@ public class Role
 {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @NotNull @OneToOne
+    @OneToOne
     private UserBlog user;
-    @NotNull @Column
+    @Column
     private Boolean is_admin;
 }

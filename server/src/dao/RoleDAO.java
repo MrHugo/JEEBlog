@@ -33,7 +33,7 @@ public class RoleDAO
         } catch (Exception e)
         {
             e.printStackTrace();
-            return new ArrayList<>();
+            return null;
         }
     }
 }

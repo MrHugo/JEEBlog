@@ -1,6 +1,7 @@
 package beans;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import tools.Rot13;
 
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -82,6 +83,11 @@ public class UserBlog {
 
     public void setPassword(final String password)
     {
-        this.password = password;
+        this.password = Rot13.apply(password);
+    }
+
+    public boolean checkPassword(String pwd)
+    {
+        return Rot13.apply(pwd).equals(this.password);
     }
 }

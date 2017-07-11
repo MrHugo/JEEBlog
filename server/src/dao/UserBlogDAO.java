@@ -56,6 +56,21 @@ public class UserBlogDAO {
         }
     }
 
+    public UserBlog getUserWithId(Integer id)
+    {
+        try
+        {
+            List<UserBlog> l = em.createQuery("SELECT b FROM UserBlog b WHERE b.id=:param")
+                    .setParameter("param", id)
+                    .getResultList();
+            return l.get(0);
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     @Transactional
     public Boolean insertUser(UserBlog u)
     {

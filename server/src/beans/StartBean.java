@@ -28,11 +28,11 @@ public class StartBean {
     {
         //userBlogDAO.insertUser(new UserBlog("dliix", "barat_v@epita.fr", "pwd"));
 
-        //UserBlog u = userBlogDAO.getUserWithMail("barat_v@epita.fr");
-        /*u.setPassword("password");
+        UserBlog u = userBlogDAO.getUserWithMail("barat_v@epita.fr");
+        u.setPassword("password");
         userBlogDAO.updateUser(u);
 
-        blogDAO.insertBlog(new Blog("my first blog", u));
+        /*blogDAO.insertBlog(new Blog("my first blog", u));
         Blog b = blogDAO.getBlogsForUser(u.getId()).get(0);
 
         articleDAO.insertArticle(new Article("my first article", u, b));*/

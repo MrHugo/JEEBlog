@@ -1,165 +1,106 @@
--- phpMyAdmin SQL Dump
--- version 4.6.4
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: Jul 10, 2017 at 11:36 AM
--- Server version: 5.7.14
--- PHP Version: 5.6.25
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
+# ************************************************************
+# Sequel Pro SQL dump
+# Version 4541
+#
+# http://www.sequelpro.com/
+# https://github.com/sequelpro/sequelpro
+#
+# Hôte: 127.0.0.1 (MySQL 5.7.16)
+# Base de données: jeeblog
+# Temps de génération: 2017-07-11 09:18:49 +0000
+# ************************************************************
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---
--- Database: `jeeblog`
---
+DROP DATABASE IF EXISTS `jeeblog`;
 
-CREATE DATABASE jeeblog;
-USE jeeblog;
+CREATE DATABASE `jeeblog`;
+USE `jeeblog`;
 
--- --------------------------------------------------------
+# Affichage de la table article
+# ------------------------------------------------------------
 
---
--- Table structure for table `article`
---
+DROP TABLE IF EXISTS `article`;
 
 CREATE TABLE `article` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `blog_id` int(11) NOT NULL,
   `content` text NOT NULL,
-  `user_id` int(11) NOT NULL
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `blog_id` (`blog_id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `article_blog_id` FOREIGN KEY (`blog_id`) REFERENCES `blog` (`id`),
+  CONSTRAINT `article_user_id` FOREIGN KEY (`user_id`) REFERENCES `userblog` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `blog`
---
+
+# Affichage de la table blog
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `blog`;
 
 CREATE TABLE `blog` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
-  `user_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `role`
---
-
-CREATE TABLE `role` (
-  `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `is_admin` tinyint(1) NOT NULL
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `blog_user_id` FOREIGN KEY (`user_id`) REFERENCES `userblog` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `comment`
---
+
+# Affichage de la table comment
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `comment`;
 
 CREATE TABLE `comment` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `article_id` int(11) NOT NULL,
-  `content` varchar(256) NOT NULL
+  `content` varchar(256) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `article_id` (`article_id`),
+  CONSTRAINT `comment_article_id` FOREIGN KEY (`article_id`) REFERENCES `article` (`id`),
+  CONSTRAINT `comment_user_id` FOREIGN KEY (`user_id`) REFERENCES `userblog` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `userblog`
---
+
+# Affichage de la table userblog
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `userblog`;
 
 CREATE TABLE `userblog` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(64) NOT NULL,
   `email` varchar(64) NOT NULL,
   `password` varchar(32) NOT NULL,
-  `role_id` int(11) NOT NULL
+  `role` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`),
+  UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Indexes for dumped tables
---
 
---
--- Indexes for table `article`
---
-ALTER TABLE `article`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `blog_id` (`blog_id`),
-  ADD KEY `user_id` (`user_id`);
 
---
--- Indexes for table `blog`
---
-ALTER TABLE `blog`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `name` (`name`),
-  ADD KEY `user_id` (`user_id`);
 
---
--- Indexes for table `role`
---
-ALTER TABLE `role`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
-
---
--- Indexes for table `comment`
---
-ALTER TABLE `comment`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `article_id` (`article_id`);
-
---
--- Indexes for table `userblog`
---
-ALTER TABLE `userblog`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `username` (`username`),
-  ADD UNIQUE KEY `email` (`email`);
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `article`
---
-ALTER TABLE `article`
-  ADD CONSTRAINT `article_ibfk_1` FOREIGN KEY (`blog_id`) REFERENCES `blog` (`id`),
-  ADD CONSTRAINT `article_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `userblog` (`id`);
-
---
--- Constraints for table `comment`
---
-ALTER TABLE `comment`
-  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`article_id`) REFERENCES `article` (`id`),
-  ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `userblog` (`id`);
-
---
--- Constraints for table `blog`
---
-ALTER TABLE `blog`
-  ADD CONSTRAINT `blog_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `userblog` (`id`);
-
---
--- Constraints for table `role`
---
-ALTER TABLE `role`
-  ADD CONSTRAINT `role_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `role` (`id`);
-
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

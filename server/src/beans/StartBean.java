@@ -1,6 +1,7 @@
 package beans;
 
 import dao.*;
+import services.ArticleService;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -20,17 +21,15 @@ public class StartBean {
     @Inject ArticleDAO articleDAO;
     @Inject BlogDAO blogDAO;
     @Inject CommentDAO commentDAO;
-    @Inject RoleDAO roleDAO;
     @Inject UserBlogDAO userBlogDAO;
 
     @PostConstruct
     void atStartup()
     {
-        System.out.println("Retrieving Articles: \n\n");
+        //userBlogDAO.insertUser(new UserBlog("dliix", "barat_v@epita.fr", "pwd"));
 
-        List<Article> list = articleDAO.getAllArticles();
-        System.out.println(list.size());
-        System.out.println(list);
+        UserBlog u = userBlogDAO.getUserWithMail("barat_v@epita.fr");
+        System.out.println(u.getUsername());
     }
 
     @PreDestroy

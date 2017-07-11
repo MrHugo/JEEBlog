@@ -3,6 +3,7 @@ package beans;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,8 +19,9 @@ public class UserBlog {
     private String email;
     @Column
     private String password;
-    @OneToOne
-    private Role role;
+    @Column
+    private Integer role;
+
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Comment> comments = new ArrayList<>();
@@ -28,4 +30,52 @@ public class UserBlog {
     @JsonIgnore @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Article> articles = new ArrayList<>();
 
+
+    public UserBlog(String username, String email, String password)
+    {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.role = 0;
+    }
+
+    public Integer getId()
+    {
+        return id;
+    }
+
+    public String getUsername()
+    {
+        return username;
+    }
+
+    public String getEmail()
+    {
+        return email;
+    }
+
+    public String getPassword()
+    {
+        return password;
+    }
+
+    public Integer getRole()
+    {
+        return role;
+    }
+
+    public List<Comment> getComments()
+    {
+        return comments;
+    }
+
+    public List<Blog> getBlogs()
+    {
+        return blogs;
+    }
+
+    public List<Article> getArticles()
+    {
+        return articles;
+    }
 }

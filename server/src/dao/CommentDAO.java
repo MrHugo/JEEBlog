@@ -19,7 +19,7 @@ public class CommentDAO
     {
         try
         {
-            return em.createQuery("SELECT c FROM Comment WHERE c.article_id=:param")
+            return em.createQuery("FROM Comment WHERE article_id=:param")
                     .setParameter("param", articleId)
                     .getResultList();
         } catch (Exception e)
@@ -35,6 +35,21 @@ public class CommentDAO
         try
         {
             em.persist(c);
+            return true;
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    @Transactional
+    public Boolean updateComment(Comment c)
+    {
+        try
+        {
+            em.merge(c);
             return true;
         } catch (Exception e)
         {

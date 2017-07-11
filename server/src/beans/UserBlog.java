@@ -30,6 +30,7 @@ public class UserBlog {
     @JsonIgnore @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Article> articles = new ArrayList<>();
 
+    public UserBlog() {}
 
     public UserBlog(String username, String email, String password)
     {
@@ -77,5 +78,10 @@ public class UserBlog {
     public List<Article> getArticles()
     {
         return articles;
+    }
+
+    public void setPassword(final String password)
+    {
+        this.password = password;
     }
 }

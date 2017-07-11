@@ -17,4 +17,37 @@ public class Blog
     private UserBlog user;
     @JsonIgnore @OneToMany
     private List<Article> articles = new ArrayList<>();
+
+    public Blog() {}
+
+    public Blog(String name, UserBlog user)
+    {
+        this.name = name;
+        this.user = user;
+    }
+
+    public Integer getId()
+    {
+        return id;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public UserBlog getUser()
+    {
+        return user;
+    }
+
+    public List<Article> getArticles()
+    {
+        return articles;
+    }
+
+    public void setName(final String name)
+    {
+        this.name = name;
+    }
 }

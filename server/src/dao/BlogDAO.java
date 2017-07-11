@@ -28,11 +28,11 @@ public class BlogDAO
         }
     }
 
-    public List<Article> getBlogsForUser(Integer userId)
+    public List<Blog> getBlogsForUser(Integer userId)
     {
         try
         {
-            return em.createQuery("SELECT b FROM Blog WHERE b.user_id=:param")
+            return em.createQuery("FROM Blog WHERE user_id=:param")
                     .setParameter("param", userId)
                     .getResultList();
         } catch (Exception e)
@@ -48,6 +48,21 @@ public class BlogDAO
         try
         {
             em.persist(b);
+            return true;
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    @Transactional
+    public Boolean updateBlog(Blog b)
+    {
+        try
+        {
+            em.merge(b);
             return true;
         } catch (Exception e)
         {

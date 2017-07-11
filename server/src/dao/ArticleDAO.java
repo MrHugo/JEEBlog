@@ -20,7 +20,6 @@ public class ArticleDAO
     {
         try
         {
-            //return em.createQuery("FROM Article").getResultList();
             javax.persistence.Query aa = em.createQuery("FROM Article");
             return aa.getResultList();
 
@@ -35,7 +34,7 @@ public class ArticleDAO
     {
         try
         {
-            return em.createQuery("SELECT a FROM Article WHERE a.user_id=:param")
+            return em.createQuery("FROM Article WHERE user_id=:param")
                     .setParameter("param", userId)
                     .getResultList();
         } catch (Exception e)
@@ -51,6 +50,20 @@ public class ArticleDAO
         try
         {
             em.persist(a);
+            return true;
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Transactional
+    public Boolean updateArticle(Article a)
+    {
+        try
+        {
+            em.merge(a);
             return true;
         } catch (Exception e)
         {

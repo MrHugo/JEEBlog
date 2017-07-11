@@ -30,8 +30,23 @@ public class UserBlogDAO {
     {
         try
         {
-            List<UserBlog> l = em.createQuery("SELECT b FROM UserBlog WHERE b.email=:param")
+            List<UserBlog> l = em.createQuery("SELECT b FROM UserBlog b WHERE b.email=:param")
                     .setParameter("param", email)
+                    .getResultList();
+            return l.get(0);
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public UserBlog getUserWithUsername(String uname)
+    {
+        try
+        {
+            List<UserBlog> l = em.createQuery("SELECT b FROM UserBlog b WHERE b.username=:param")
+                    .setParameter("param", uname)
                     .getResultList();
             return l.get(0);
         } catch (Exception e)
@@ -47,6 +62,20 @@ public class UserBlogDAO {
         try
         {
             em.persist(u);
+            return true;
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Transactional
+    public Boolean updateUser(UserBlog u)
+    {
+        try
+        {
+            em.merge(u);
             return true;
         } catch (Exception e)
         {

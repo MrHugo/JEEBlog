@@ -1,30 +1,27 @@
 package dao;
 
-import beans.Article;
-import producers.EntityManagerGetter;
-
+import beans.article;
 import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Valentin Barat on 10/07/2017.
- * Please report any bug to valentin.barat@epita.fr.
- */
+
 @Dependent
 public class ArticleDAO
 {
-    private EntityManager em = EntityManagerGetter.getEntityManager();
+    @PersistenceContext(name = "MySqlDS")
+    private EntityManager em;
 
-    public List<Article> getAllArticles()
+    public List<article> getAllArticles()
     {
         try
         {
-            return em.createQuery("FROM article").getResultList();
+            //return em.createQuery("FROM article").getResultList();
+            javax.persistence.Query aa = em.createQuery("FROM article");
+            return aa.getResultList();
 
         } catch (Exception e)
         {
@@ -33,7 +30,7 @@ public class ArticleDAO
         }
     }
 
-    public List<Article> getArticlesForUser(Integer userId)
+    public List<article> getArticlesForUser(Integer userId)
     {
         try
         {
@@ -48,7 +45,7 @@ public class ArticleDAO
     }
 
     @Transactional
-    public Boolean insertArticle(Article a)
+    public Boolean insertArticle(article a)
     {
         try
         {

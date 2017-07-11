@@ -15,5 +15,5 @@ public class Blog
     @ManyToOne
     private UserBlog user;
     @JsonIgnore @OneToMany
-    private List<Article> articles = new ArrayList<>();
+    private List<article> articles = new ArrayList<>();
 }

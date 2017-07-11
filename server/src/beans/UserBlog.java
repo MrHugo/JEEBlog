@@ -25,6 +25,6 @@ public class UserBlog {
     @JsonIgnore @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Blog> blogs = new ArrayList<>();
     @JsonIgnore @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<Article> articles = new ArrayList<>();
+    private List<article> articles = new ArrayList<>();
 
 }

@@ -3,9 +3,9 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
              version="2.1">
 
-    <persistence-unit name="MySqlDS">
+    <persistence-unit name="MySqlDS" transaction-type="JTA">
         <jta-data-source>java:/MySqlDS</jta-data-source>
-        <class>beans.Article</class>
+        <class>beans.article</class>
         <class>beans.Blog</class>
         <class>beans.Comment</class>
         <class>beans.Role</class>

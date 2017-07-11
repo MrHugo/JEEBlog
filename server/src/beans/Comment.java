@@ -11,7 +11,7 @@ public class Comment
     @ManyToOne
     private UserBlog user;
     @ManyToOne
-    private Article article;
+    private beans.article article;
     @Column
     private String content;
 

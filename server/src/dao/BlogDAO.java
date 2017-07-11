@@ -1,30 +1,25 @@
 package dao;
 
-import beans.Article;
+import beans.article;
 import beans.Blog;
-import producers.EntityManagerGetter;
-
 import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Valentin Barat on 10/07/2017.
- * Please report any bug to valentin.barat@epita.fr.
- */
 @Dependent
 public class BlogDAO
 {
-    private EntityManager em = EntityManagerGetter.getEntityManager();
+    @PersistenceContext
+    private EntityManager em;
 
     public List<Blog> getAllBlogs()
     {
         try
         {
-            return em.createQuery("FROM blog").getResultList();
+            return em.createQuery("FROM Blog").getResultList();
 
         } catch (Exception e)
         {
@@ -33,7 +28,7 @@ public class BlogDAO
         }
     }
 
-    public List<Article> getBlogsForUser(Integer userId)
+    public List<article> getBlogsForUser(Integer userId)
     {
         try
         {

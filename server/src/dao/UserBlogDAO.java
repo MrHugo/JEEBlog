@@ -71,6 +71,19 @@ public class UserBlogDAO {
         }
     }
 
+    public UserBlog login(String email, String password)
+    {
+        UserBlog u = getUserWithMail(email);
+        if (u == null) return null;
+
+        return u.checkPassword(password) ? u : null;
+    }
+
+    public boolean signup(String username, String email, String password)
+    {
+        return insertUser(new UserBlog(username, email, password));
+    }
+
     @Transactional
     public Boolean insertUser(UserBlog u)
     {

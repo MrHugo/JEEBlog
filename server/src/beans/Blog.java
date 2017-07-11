@@ -12,8 +12,33 @@ public class Blog
     private Integer id;
     @Column
     private String name;
+
     @ManyToOne
     private UserBlog user;
     @JsonIgnore @OneToMany
     private List<Article> articles = new ArrayList<>();
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    public UserBlog getUser() {
+        return user;
+    }
+
+    public void setUser(final UserBlog user) {
+        this.user = user;
+    }
+
+    public List<Article> getArticles() {
+        return articles;
+    }
 }

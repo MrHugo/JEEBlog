@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class article
+@Table(name = "article")
+public class Article
 {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

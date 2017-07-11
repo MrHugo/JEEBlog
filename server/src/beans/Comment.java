@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "comment")
 public class Comment
 {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,7 +12,7 @@ public class Comment
     @ManyToOne
     private UserBlog user;
     @ManyToOne
-    private beans.article article;
+    private Article article;
     @Column
     private String content;
 

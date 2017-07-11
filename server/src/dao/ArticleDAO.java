@@ -1,6 +1,7 @@
 package dao;
 
-import beans.article;
+import beans.Article;
+
 import javax.enterprise.context.Dependent;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,12 +16,12 @@ public class ArticleDAO
     @PersistenceContext(name = "MySqlDS")
     private EntityManager em;
 
-    public List<article> getAllArticles()
+    public List<Article> getAllArticles()
     {
         try
         {
-            //return em.createQuery("FROM article").getResultList();
-            javax.persistence.Query aa = em.createQuery("FROM article");
+            //return em.createQuery("FROM Article").getResultList();
+            javax.persistence.Query aa = em.createQuery("FROM Article");
             return aa.getResultList();
 
         } catch (Exception e)
@@ -30,11 +31,11 @@ public class ArticleDAO
         }
     }
 
-    public List<article> getArticlesForUser(Integer userId)
+    public List<Article> getArticlesForUser(Integer userId)
     {
         try
         {
-            return em.createQuery("SELECT a FROM article WHERE a.user_id=:param")
+            return em.createQuery("SELECT a FROM Article WHERE a.user_id=:param")
                     .setParameter("param", userId)
                     .getResultList();
         } catch (Exception e)
@@ -45,7 +46,7 @@ public class ArticleDAO
     }
 
     @Transactional
-    public Boolean insertArticle(article a)
+    public Boolean insertArticle(Article a)
     {
         try
         {

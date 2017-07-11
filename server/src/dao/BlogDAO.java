@@ -1,6 +1,6 @@
 package dao;
 
-import beans.article;
+import beans.Article;
 import beans.Blog;
 import javax.enterprise.context.Dependent;
 import javax.persistence.EntityManager;
@@ -28,11 +28,11 @@ public class BlogDAO
         }
     }
 
-    public List<article> getBlogsForUser(Integer userId)
+    public List<Article> getBlogsForUser(Integer userId)
     {
         try
         {
-            return em.createQuery("SELECT b FROM blog WHERE b.user_id=:param")
+            return em.createQuery("SELECT b FROM Blog WHERE b.user_id=:param")
                     .setParameter("param", userId)
                     .getResultList();
         } catch (Exception e)

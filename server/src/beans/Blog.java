@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "blog")
 public class Blog
 {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,5 +16,5 @@ public class Blog
     @ManyToOne
     private UserBlog user;
     @JsonIgnore @OneToMany
-    private List<article> articles = new ArrayList<>();
+    private List<Article> articles = new ArrayList<>();
 }

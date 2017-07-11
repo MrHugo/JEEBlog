@@ -1,6 +1,6 @@
 package beans;
 
-import dao.ArticleDAO;
+import dao.*;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -18,13 +18,17 @@ import java.util.List;
 public class StartBean {
 
     @Inject ArticleDAO articleDAO;
+    @Inject BlogDAO blogDAO;
+    @Inject CommentDAO commentDAO;
+    @Inject RoleDAO roleDAO;
+    @Inject UserBlogDAO userBlogDAO;
 
     @PostConstruct
     void atStartup()
     {
         System.out.println("Retrieving Articles: \n\n");
 
-        List<article> list = articleDAO.getAllArticles();
+        List<Article> list = articleDAO.getAllArticles();
         System.out.println(list.size());
         System.out.println(list);
     }

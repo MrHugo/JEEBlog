@@ -1,16 +1,21 @@
 package dao;
 
 import beans.UserBlog;
+import lombok.Data;
 
 import javax.enterprise.context.Dependent;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Dependent
-public class UserBlogDAO {
+@Named("userDAO")
+@Data
+public class UserBlogDAO implements Serializable{
     @PersistenceContext
     private EntityManager em;
 
@@ -81,7 +86,7 @@ public class UserBlogDAO {
     }
 
     public boolean signup(String username, String email, String password)
-    {
+        {
         return insertUser(new UserBlog(username, email, password));
     }
 

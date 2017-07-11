@@ -6,10 +6,14 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head></h:head>
 <f:view>
-    <h:outputLabel value="Hello, world Hugo"/>
-
-    <h:form>
-        <p:editor value="Super editor" />
+    <h:form id="baseForm">
+        <p:outputLabel value="username"/>
+        <p:inputText id="username" binding="#{username}"/>
+        <p:outputLabel value="email"/>
+        <p:inputText id="email" binding="#{email}"/>
+        <p:outputLabel value="password"/>
+        <p:inputText id="password" binding="#{password}" />
+        <p:commandButton action="${userBlogDAO.insertUser(username.value, email.value, password.value)}" value="Register"/>
     </h:form>
 </f:view>
 </html>

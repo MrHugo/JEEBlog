@@ -4,6 +4,7 @@ import beans.UserBlog;
 import dao.UserBlogDAO;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.jws.WebService;
 import javax.ws.rs.*;
 

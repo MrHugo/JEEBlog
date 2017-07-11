@@ -29,6 +29,22 @@ public class CommentDAO
         }
     }
 
+    public Comment getCommentWithId(Integer id)
+    {
+        try
+        {
+            List<Comment> l = em.createQuery("FROM Comment WHERE id=:param")
+                    .setParameter("param", id)
+                    .setMaxResults(1)
+                    .getResultList();
+            return l.get(0);
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     @Transactional
     public Boolean insertComment(Comment c)
     {

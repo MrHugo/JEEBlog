@@ -21,21 +21,6 @@ public class UserBlogService {
 
     @Inject UserBlogDAO userBlogDAO;
 
-    /*@GET
-    @Path("/handshake")
-    public String handshake(@Context final HttpServletRequest request)
-    {
-
-    }*/
-
-    /*@PUT
-    @Path("/token")
-    @Consumes("application/json")
-    public void token(final String content) throws IOException
-    {
-
-    }*/
-
     @GET
     @Path("/{userId}")
     public UserBlog getUserById(@PathParam("userId") final Integer userId)

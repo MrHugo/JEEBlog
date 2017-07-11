@@ -44,6 +44,22 @@ public class ArticleDAO
         }
     }
 
+    public Article getArticleWithId(Integer id)
+    {
+        try
+        {
+            List<Article> l = em.createQuery("FROM Article WHERE id=:param")
+                    .setParameter("param", id)
+                    .setMaxResults(1)
+                    .getResultList();
+            return l.get(0);
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     @Transactional
     public Boolean insertArticle(Article a)
     {

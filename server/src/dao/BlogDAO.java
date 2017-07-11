@@ -28,6 +28,22 @@ public class BlogDAO
         }
     }
 
+    public Blog getBlogWithId(Integer id)
+    {
+        try
+        {
+            List<Blog> l = em.createQuery("FROM Blog WHERE id=:param")
+                    .setParameter("param", id)
+                    .setMaxResults(1)
+                    .getResultList();
+            return l.get(0);
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public List<Blog> getBlogsForUser(Integer userId)
     {
         try
